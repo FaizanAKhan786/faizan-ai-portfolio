@@ -1,63 +1,73 @@
-# Faizan AI Portfolio
+<div align="center">
 
-Premium, dark-first AI engineering portfolio built with **Next.js App Router, React, TypeScript, Framer Motion, GSAP-ready styling, React Three Fiber, and a small server API**.
+# Faizan AI Portfolio
+### An interactive portfolio for real-world AI engineering
+
+**Next.js · React · TypeScript · Motion · 3D · Optional server-side AI**
+
+![Next.js](https://img.shields.io/badge/Next.js-15-111827?logo=nextdotjs&logoColor=white)
+![React](https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Source%20Project-7C3AED)
+
+[Quick start](#quick-start) · [Architecture](#architecture) · [Features](#features) · [Deployment](#deployment)
+
+</div>
+
+## What is this?
+
+A **dark-first interactive developer portfolio** focused on AI systems, case studies and hands-on demonstrations. The UI includes a neural-field visual, project presentations and an AI playground. External AI replies and contact-form delivery are **optional**, server-side integrations and are not required to explore the frontend.
+
+> **Repository layout:** The runnable Next.js application is currently inside [`faizan-ai-portfolio/`](faizan-ai-portfolio/), one level below this repository's root. The root also contains a copy of the tool configuration. Run application commands from the **nested folder**, not the repository root.
+
+## Architecture
+
+```mermaid
+flowchart TD
+    U["Portfolio visitor"] --> N["Next.js App Router + React"]
+    N --> V["3D / motion components"]
+    N --> P["Project case studies"]
+    N --> D["AI playground"]
+    D --> R["Public portfolio grounding"]
+    R --> L{"Groq configured?"}
+    L -->|Yes| A["Server-side LLM call"]
+    L -->|No| F["Clearly labeled demo response"]
+    N --> C["Contact form"]
+    C --> E["Optional server-side Resend"]
+```
 
 ## Features
 
-- Interactive, drag-rotatable neural field with a lightweight mobile / reduced-motion fallback
-- Responsive hero, SaaS engineering workspace, animated flow diagrams and project case-study modal
-- 7 curated projects including SADA Voice AI, Muhawir, Lahja, offline NMT and private RAG
-- AI playground with **4 functional tabs**: Ask My AI, RAG trace, agent execution simulation and browser speech demo
-- Searchable public knowledge grounding for Ask My AI
-- Optional server-side Groq Chat Completions with **streamed responses**. No browser-side secrets
-- Live GitHub public repository metadata with a documented static fallback
-- Optional working contact form powered by Resend, validation and basic rate-limiting
-- Responsive mobile nav, keyboard navigation, reduced-motion preferences, light/dark setting
-- Editable content in one file; SEO, social image, sitemap, robots and JSON-LD included
+| Experience | Implementation |
+| --- | --- |
+| Visual design | Responsive dark-first layout, neural illustration and reduced-motion support |
+| Projects | Curated AI case studies and technical context |
+| AI playground | Public-content responses, retrieval and agent-execution demos |
+| AI integration | Optional Groq Chat Completions endpoint, server-side only |
+| Contact | Optional Resend-backed form plus direct email link |
+| Discoverability | SEO metadata, sitemap, robots and social sharing image |
+| Quality | Content/structure tests and local tooling commands |
 
-## Get started
+Visual simulations in the playground are explicitly **demonstrations**, not traces of a live production agent.
 
-Requirements: Node.js 20.11+ and npm. From this folder:
+## Quick start
+
+**Requirements:** Node.js 20.11+ and npm.
 
 ```bash
+git clone https://github.com/FaizanAKhan786/faizan-ai-portfolio.git
+cd faizan-ai-portfolio/faizan-ai-portfolio
 npm install
-cp .env.example .env.local
+cp ../.env.example .env.local
 npm run dev
 ```
 
-Open http://localhost:3000. No API key is needed to explore the design and interactive simulations.
+Open [localhost:3000](http://localhost:3000). The homepage and demos can be explored without API keys.
 
-### Optional integrations
+If you need real AI responses, configure `GROQ_API_KEY` **server-side** in `.env.local`. For the contact form, set `RESEND_API_KEY`, `CONTACT_FROM_EMAIL` (verified sender) and `CONTACT_TO_EMAIL`. Avoid putting secrets in any `NEXT_PUBLIC_*` variable.
 
-1. For real AI replies, add `GROQ_API_KEY` to `.env.local`. The chat endpoint sends only the user question and selected public portfolio text to Groq. Without a key, it clearly uses deterministic **portfolio content demo** replies. If Groq is unavailable, it automatically falls back to the labeled demo.
-2. For real contact delivery, set `RESEND_API_KEY`, `CONTACT_FROM_EMAIL` (a verified Resend sender) and `CONTACT_TO_EMAIL`. Without these, the form returns a clear configuration error and visitors can use the direct `mailto:` link. No false successful submissions.
-3. Set `NEXT_PUBLIC_SITE_URL` to the deployed HTTPS URL for correct canonical/OG/sitemap metadata.
-4. GitHub activity fetches public repository metadata from GitHub, with a curated repo fallback when GitHub is unavailable. No token required for normal traffic; production sites with high traffic should cache or use a server-side token.
+## Development
 
-## Edit portfolio content
-
-Edit `content/portfolio.ts` to change availability, roles, projects, verified results, skills, contact links and architectural illustrations. Keep professional claims based on evidence. `public/Faizan_Ahmed_Khan_Resume.pdf` is the neutral resume download; replace it with your preferred up-to-date PDF as needed.
-
-## Deployment
-
-**Vercel:** Import the project or upload a Git repository. Framework: Next.js. Build: `npm run build`. Configure environment variables in Vercel settings. Redeploy. For SADA, the site links to the verified existing public demo; this portfolio does not embed confidential backend integrations.
-
-**Other Node hosts:** `npm install && npm run build && npm start` with port 3000 and the same environment variables.
-
-### Security and production hardening
-
-- Real API provider keys are read only from server environment variables, never `NEXT_PUBLIC_*`.
-- Contact endpoint validates lengths and email addresses, applies a honeypot, escapes HTML, and returns honest errors.
-- Chat limits messages to 800 characters, retrieves only approved public entries, and constrains the model to the public facts supplied.
-- A per-process in-memory rate limiter is included for a starter deployment; before significant public traffic, replace it with a **distributed Redis/KV limiter** to enforce limits across serverless instances and address IP spoofing at the trusted proxy boundary. Optional CAPTCHA/Turnstile can be added for contact abuse.
-- Visitor chat data sent to a third-party model should be disclosed in your privacy notice if the live provider is enabled.
-- All user-visible architecture and telemetry illustrations are labeled illustrative or simulation. No client names or proprietary files are shared.
-- Avoid feeding confidential employer data into the public knowledge base.
-
-## Quality checks
-
-See [BUILD_STATUS.md](BUILD_STATUS.md) for the verification limits of this delivery. A full Next.js build requires dependency installation on a networked machine.
-
+Run inside the nested `faizan-ai-portfolio/` application directory:
 
 ```bash
 npm run typecheck
@@ -66,23 +76,12 @@ npm test
 npm run build
 ```
 
-## Structure
+Edit portfolio data in [`faizan-ai-portfolio/content/portfolio.ts`](faizan-ai-portfolio/content/portfolio.ts). Components are under [`faizan-ai-portfolio/components/`](faizan-ai-portfolio/components/), with routes and API handlers under [`faizan-ai-portfolio/app/`](faizan-ai-portfolio/app/).
 
-```text
-app/                  Next.js pages, CSS, SEO and secure API routes
-components/sections/  Main portfolio sections
-components/visuals/   R3F neural sphere and project visual art
-components/ui/        Reusable text and motion elements
-content/portfolio.ts  Editable, approved professional data
-lib/                  Retrieval and rate-limiting utilities
-public/               Downloadable professional resume
-tests/                Content and integration-structure tests
-```
+## Deployment
 
-## Sources and integrity
+Deploy the **nested app directory** as the service root and build with `npm run build`. Set `NEXT_PUBLIC_SITE_URL` to the real deployed HTTPS origin before release. The repository contains deployment starter configuration, but **source code and configuration alone are not confirmation of a working public deployment**.
 
-Portfolio facts are curated from the candidate's shared resume and public GitHub project READMEs. The website does not claim that synthetic order data in SADA is a real customer system. Company AI systems are described at a high level with no private code repositories or false demo links.
+Before accepting significant public traffic, add distributed rate limiting and anti-abuse protection, check vendor privacy disclosures, test the production build, and verify that the contact sender is permitted by your email provider.
 
-### UI stack note
-
-The visual system uses Tailwind utilities alongside extensive custom art-direction CSS. Radix Tabs (a shadcn/ui-compatible accessible primitive) power the playground navigation, and `components/ui/button.tsx` is a locally owned shadcn-style button primitive. GSAP ScrollTrigger is used for the architecture flow's entrance animation; Framer Motion handles section and UI transitions. The hero is rendered with React Three Fiber.
+[Issues](https://github.com/FaizanAKhan786/faizan-ai-portfolio/issues) · [GitHub profile](https://github.com/FaizanAKhan786)
