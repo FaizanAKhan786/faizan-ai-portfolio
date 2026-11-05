@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync,existsSync} from 'node:fs';
+const source=readFileSync(new URL('../content/portfolio.ts',import.meta.url),'utf8');
+const css=readFileSync(new URL('../app/globals.css',import.meta.url),'utf8');
+test('central content includes confirmed user identity',()=>{assert.match(source,/Faizan Ahmed Khan/);assert.match(source,/3\+/)});
+test('featured GitHub repo links are real URLs, not placeholders',()=>{for(const repo of ['sada-voice-ai','muhawir','lahja','interviewlens-ai'])assert.match(source,new RegExp(`https://github.com/FaizanAKhan786/${repo}`));assert.doesNotMatch(source,/https:\/\/github.com\/your-username/)});
+test('promotional demo is accurately labeled',()=>{assert.match(source,/synthetic-data demo/);assert.match(source,/illustrative/);assert.match(readFileSync(new URL('../components/visuals/ProjectArt.tsx',import.meta.url),'utf8'),/ILLUSTRATIVE/)});
+test('mobile and reduced-motion CSS are present',()=>{assert.match(css,/@media\(max-width:560px\)/);assert.match(css,/@media\(prefers-reduced-motion:reduce\)/)});
+test('backend routes and environment sample exist',()=>{for(const f of ['app/api/chat/route.ts','app/api/contact/route.ts','app/api/github/route.ts','.env.example'])assert.equal(existsSync(new URL('../'+f,import.meta.url)),true)});

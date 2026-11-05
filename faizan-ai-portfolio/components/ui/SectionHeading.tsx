@@ -1,0 +1,2 @@
+import type {ReactNode} from 'react';
+export default function SectionHeading({index,eyebrow,title,desc,side}:{index:string;eyebrow:string;title:ReactNode;desc?:string;side?:ReactNode}){return <div className="section-head"><div><div className="eyebrow"><span className="eyebrow-line"/>{index} / {eyebrow}</div><h2 className="section-title">{title}</h2>{desc&&<p className="section-desc">{desc}</p>}</div>{side&&<div className="section-side">{side}</div>}</div>}
