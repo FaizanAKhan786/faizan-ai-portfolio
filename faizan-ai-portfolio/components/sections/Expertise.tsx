@@ -1,7 +1,7 @@
 'use client';
 import {useState,type CSSProperties} from 'react';
 import {motion,AnimatePresence} from 'framer-motion';
-import {Braces,BrainCircuit,ChevronRight,CircleDot,Cloud,Code2,Database,Layers3,MoveUpRight,Network,Server,Workflow} from 'lucide-react';
+import {Braces,BrainCircuit,ChevronRight,CircleDot,Cloud,Code2,Database,Layers3,MoveUpRight,ArrowUpRight,Network,Server,Workflow} from 'lucide-react';
 import {skillGroups,architectures} from '@/content/portfolio';
 import {Reveal} from '@/components/ui/Reveal';
 import SectionHeading from '@/components/ui/SectionHeading';
