@@ -1,4 +1,7 @@
 <div align="center">
+  <a href="https://github.com/FaizanAKhan786/faizan-ai-portfolio"><img src="docs/project-showcase.svg" alt="faizan-ai-portfolio conceptual AI system architecture artwork" width="100%" /></a>
+  <br />
+
 
 # Faizan AI Portfolio
 ### An interactive portfolio for real-world AI engineering
