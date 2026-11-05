@@ -87,4 +87,8 @@ Deploy the **nested app directory** as the service root and build with `npm run 
 
 Before accepting significant public traffic, add distributed rate limiting and anti-abuse protection, check vendor privacy disclosures, test the production build, and verify that the contact sender is permitted by your email provider.
 
+## Verification & benchmark protocol
+
+[Read the reproducible test and evaluation guide](docs/QUALITY.md). It documents the current automated checks, commands for model-dependent evaluations, and what results **do not** establish.
+
 [Issues](https://github.com/FaizanAKhan786/faizan-ai-portfolio/issues) · [GitHub profile](https://github.com/FaizanAKhan786)
